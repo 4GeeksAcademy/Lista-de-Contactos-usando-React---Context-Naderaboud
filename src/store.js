@@ -3,15 +3,7 @@ import { Contact } from "./components/Contact";
 export const initialStore = () => {
   return {
     usuario: "Nader",
-    contacts: [
-      {
-        name: "",
-        phone: "",
-        email: "",
-        address: "",
-        profileimg: ""
-      }
-    ]
+    contacts: []
   }
 }
 

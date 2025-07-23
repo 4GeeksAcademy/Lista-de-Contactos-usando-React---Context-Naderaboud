@@ -14,18 +14,13 @@ export const getContacts = async (dispatch) => {
 }
 
 export const createContact = async (newContact, dispatch, navigate) => {
-    const newCont = {
-        name: newContact.name,
-        adress: newContact.adress,
-        email: newContact.email,
-        phone: newContact.phone,
-    }
+
     const response = await fetch('https://playground.4geeks.com/contact/agendas/Nader/contacts', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(newCont)
+        body: JSON.stringify(newContact)
     });
 
     if (response.ok) {
@@ -37,6 +32,29 @@ export const createContact = async (newContact, dispatch, navigate) => {
             payload: data
         });
         getContacts(dispatch);
+        navigate("/")
+    }
+}
+
+export const deleteContact = async (id, dispatch, navigate) => {
+    const response = await fetch(`https://playground.4geeks.com/contact/agendas/Nader/contacts/${id}`, {
+        method: 'DELETE'
+    }
+    )
+    if (response.ok) {
+        getContacts(dispatch)
+        location.reload
+    }
+}
+
+export const editContact = async(id, newContact, dispatch, navigate) => {
+    const response = await fetch(`https://playground.4geeks.com/contact/agendas/Nader/contacts/${id}`, {
+        method: 'PUT',
+        body: 'Content-Type: application/json',
+        headers: JSON.stringify(newContact)
+    })
+    if (response.ok) {
+        getContacts(dispatch)
         navigate("/")
     }
 }

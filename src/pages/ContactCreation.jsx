@@ -1,21 +1,21 @@
 // Import necessary components from react-router-dom and other parts of the application.
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import useGlobalReducer from "../hooks/useGlobalReducer";  // Custom hook for accessing the global state.
 import { createContact } from "../services/ServicesAPI";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export const ContactCreation = () => {
   // Access the global state and dispatch function using the useGlobalReducer hook.
   const { store, dispatch } = useGlobalReducer()
-
   const navigate = useNavigate()
+
+  const {id} = useParams()
 
   const [newContact, setNewContact] = useState({
     name: "",
-    adress: "",
+    address: "",
     phone: "",
     email: "",
-    profileURL: ""
   });
 
   const handleInputChange = (e) => {
@@ -28,13 +28,16 @@ export const ContactCreation = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!newContact.name || !newContact.adress || !newContact.phone || !newContact.email) {
+    if (!newContact.name || !newContact.address || !newContact.phone || !newContact.email) {
       alert("Please fill in all fields.");
       return;
     }
+
     createContact(newContact, dispatch, navigate);
 
   }
+
+  useEffect
 
   return (
     <>
@@ -49,7 +52,7 @@ export const ContactCreation = () => {
 
           <div className="input-group mb-3 col-12 mx-auto">
             <span className="input-group-text" id="inputGroup-sizing-default">Address</span>
-            <input type="text" className="form-control" name="adress" value={newContact.adress} onChange={handleInputChange} />
+            <input type="text" className="form-control" name="address" value={newContact.address} onChange={handleInputChange} />
           </div>
 
           <div className="input-group mb-3 col-12 mx-auto">
