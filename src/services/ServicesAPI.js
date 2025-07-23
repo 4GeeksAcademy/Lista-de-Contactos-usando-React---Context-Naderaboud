@@ -1,11 +1,14 @@
+import { array } from "prop-types";
 
 export const getContacts = async (dispatch) => {
     const response = await fetch('https://playground.4geeks.com/contact/agendas/Nader/contacts');
     const data = await response.json();
-    if (response.ok) {
+
+    console.log(data)
+    if (Array.isArray(data.contacts)) {
         dispatch({
             type: "set_contacts",
-            payload: data
+            payload: data.contacts
         });
     }
 }
@@ -16,7 +19,6 @@ export const createContact = async (newContact, dispatch, navigate) => {
         adress: newContact.adress,
         email: newContact.email,
         phone: newContact.phone,
-        profileURL: newContact.profileURL
     }
     const response = await fetch('https://playground.4geeks.com/contact/agendas/Nader/contacts', {
         method: 'POST',

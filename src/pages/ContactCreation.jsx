@@ -28,11 +28,10 @@ export const ContactCreation = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!newContact.name || !newContact.adress || !newContact.phone || !newContact.email || !newContact.profileURL) {
+    if (!newContact.name || !newContact.adress || !newContact.phone || !newContact.email) {
       alert("Please fill in all fields.");
       return;
     }
-    console.log("se crea un contacto")
     createContact(newContact, dispatch, navigate);
 
   }
@@ -61,11 +60,6 @@ export const ContactCreation = () => {
           <div className="input-group mb-3 col-12 mx-auto">
             <span className="input-group-text" id="inputGroup-sizing-default">E-mail</span>
             <input type="text" className="form-control" name="email" value={newContact.email} onChange={handleInputChange} />
-          </div>
-
-          <div className="input-group mb-3 col-12 mx-auto">
-            <span className="input-group-text" id="inputGroup-sizing-default">Profile Image (URL)</span>
-            <input type="text" className="form-control" name="profileURL" value={newContact.profileURL} onChange={handleInputChange} />
           </div>
 
           <button type="submit"

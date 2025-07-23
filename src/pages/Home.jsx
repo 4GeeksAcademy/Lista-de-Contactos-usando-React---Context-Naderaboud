@@ -17,15 +17,15 @@ export const Home = () => {
 			<h1>CONTACTS</h1>
 			<div className="container-fluid col-11">
 				<ul className="list-group row-11">
-					{store.contacts.map(contact => (
-						<Contact
-							name={contact.name}
-							profileURL={contact.profileURL}
-							adress={contact.adress}
-							email={contact.email}
-							phone={contact.phone}
-							key={contact.id}
-						/>
+					{store.contacts?.map(contact => (
+						<div key={contact.id}>
+							<Contact
+								name={contact.name}
+								adress={contact.adress}
+								email={contact.email}
+								phone={contact.phone}
+							/>
+						</div>
 					))}
 				</ul>
 			</div>
