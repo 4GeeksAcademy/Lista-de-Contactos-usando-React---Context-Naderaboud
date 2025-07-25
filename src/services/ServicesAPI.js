@@ -36,7 +36,7 @@ export const createContact = async (newContact, dispatch, navigate) => {
     }
 }
 
-export const deleteContact = async (id, dispatch, navigate) => {
+export const deleteContact = async (id, dispatch) => {
     const response = await fetch(`https://playground.4geeks.com/contact/agendas/Nader/contacts/${id}`, {
         method: 'DELETE'
     }
@@ -47,11 +47,13 @@ export const deleteContact = async (id, dispatch, navigate) => {
     }
 }
 
-export const editContact = async(id, newContact, dispatch, navigate) => {
+export const editContact = async (id, newContact, dispatch, navigate) => {
     const response = await fetch(`https://playground.4geeks.com/contact/agendas/Nader/contacts/${id}`, {
         method: 'PUT',
-        body: 'Content-Type: application/json',
-        headers: JSON.stringify(newContact)
+        body: JSON.stringify(newContact),
+        headers: { "Content-Type": "application/json"
+
+        }
     })
     if (response.ok) {
         getContacts(dispatch)

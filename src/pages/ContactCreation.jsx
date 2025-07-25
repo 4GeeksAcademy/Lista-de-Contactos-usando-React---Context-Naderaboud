@@ -1,7 +1,7 @@
 // Import necessary components from react-router-dom and other parts of the application.
 import { Link, useNavigate, useParams } from "react-router-dom";
 import useGlobalReducer from "../hooks/useGlobalReducer";  // Custom hook for accessing the global state.
-import { createContact } from "../services/ServicesAPI";
+import { createContact, editContact } from "../services/ServicesAPI";
 import { useEffect, useState } from "react";
 
 export const ContactCreation = () => {
@@ -9,7 +9,10 @@ export const ContactCreation = () => {
   const { store, dispatch } = useGlobalReducer()
   const navigate = useNavigate()
 
-  const {id} = useParams()
+  const [isEditing, setIsEditing] = useState(false)
+
+
+  const { id } = useParams()
 
   const [newContact, setNewContact] = useState({
     name: "",
@@ -33,11 +36,23 @@ export const ContactCreation = () => {
       return;
     }
 
-    createContact(newContact, dispatch, navigate);
+    if (isEditing) {
+      editContact(id, newContact, dispatch, navigate)
+
+    } else {
+      createContact(newContact, dispatch, navigate);
+    }
+
 
   }
 
-  useEffect
+  useEffect(() => {
+    if (id) {
+      setNewContact(store.contacts?.filter(contact => contact.id == id)[0])
+      setIsEditing(true);
+    } else
+      setIsEditing(false)
+  }, [isEditing])
 
   return (
     <>
