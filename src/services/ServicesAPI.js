@@ -1,9 +1,13 @@
 import { array } from "prop-types";
 
 export const getContacts = async (dispatch) => {
-    const response = await fetch('https://playground.4geeks.com/contact/agendas/Nader/contacts');
+    const response = await fetch('https://playground.4geeks.com/contact/agendas/User/contacts');
     const data = await response.json();
 
+    if (!response.ok)
+ {
+    CreateAgenda()
+ }
     console.log(data)
     if (Array.isArray(data.contacts)) {
         dispatch({
@@ -15,7 +19,7 @@ export const getContacts = async (dispatch) => {
 
 export const createContact = async (newContact, dispatch, navigate) => {
 
-    const response = await fetch('https://playground.4geeks.com/contact/agendas/Nader/contacts', {
+    const response = await fetch('https://playground.4geeks.com/contact/agendas/User/contacts', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -37,7 +41,7 @@ export const createContact = async (newContact, dispatch, navigate) => {
 }
 
 export const deleteContact = async (id, dispatch) => {
-    const response = await fetch(`https://playground.4geeks.com/contact/agendas/Nader/contacts/${id}`, {
+    const response = await fetch(`https://playground.4geeks.com/contact/agendas/User/contacts/${id}`, {
         method: 'DELETE'
     }
     )
@@ -48,7 +52,7 @@ export const deleteContact = async (id, dispatch) => {
 }
 
 export const editContact = async (id, newContact, dispatch, navigate) => {
-    const response = await fetch(`https://playground.4geeks.com/contact/agendas/Nader/contacts/${id}`, {
+    const response = await fetch(`https://playground.4geeks.com/contact/agendas/User/contacts/${id}`, {
         method: 'PUT',
         body: JSON.stringify(newContact),
         headers: { "Content-Type": "application/json"
@@ -59,4 +63,13 @@ export const editContact = async (id, newContact, dispatch, navigate) => {
         getContacts(dispatch)
         navigate("/")
     }
+}
+
+export const CreateAgenda = async () => {
+    const response = await  fetch (`https://playground.4geeks.com/contact/agendas/User`,{
+        method: "POST"
+    })
+    const data = await response.json()
+    console.log(data);
+
 }
